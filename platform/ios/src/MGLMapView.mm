@@ -1107,11 +1107,13 @@ public:
 
 - (void)setContentInset:(UIEdgeInsets)contentInset
 {
+    MGLLogDebug(@"Setting content inset: %@", NSStringFromUIEdgeInsets(contentInset));
     [self setContentInset:contentInset animated:NO];
 }
 
 - (void)setContentInset:(UIEdgeInsets)contentInset animated:(BOOL)animated
 {
+    MGLLogDebug(@"Setting content inset: %@, animated: %@", NSStringFromUIEdgeInsets(contentInset), MGLStringFromBOOL(animated));
     if (UIEdgeInsetsEqualToEdgeInsets(contentInset, self.contentInset))
     {
         return;
@@ -3328,7 +3330,7 @@ public:
     mbgl::CameraOptions cameraOptions = self.mbglMap.cameraForLatLngs(latLngs, padding);
     if (direction >= 0)
     {
-        cameraOptions.angle = direction;
+        cameraOptions = self.mbglMap.cameraForLatLngs(latLngs, padding, direction);
     }
 
     mbgl::AnimationOptions animationOptions;
